@@ -19,7 +19,7 @@ export const createUser = (req, res) => {
 };
 
 export const checkUser = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.query;
   User.findOne({ email: email })
     .then((user) => {
       if (password === user.password) {
