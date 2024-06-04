@@ -10,7 +10,7 @@ export const createUser = (req, res) => {
         message: "Sign Up Success",
       });
     })
-    .catch((err) =>
+    .catch(() =>
       res.status(404).json({
         status: "fail",
         message: "Account already exists",
@@ -23,7 +23,11 @@ export const checkUser = (req, res) => {
   User.findOne({ email: email })
     .then((user) => {
       if (password === user.password) {
-        return res.redirect("/task/" + user._id);
+        return res.status(200).json({
+          status: "success",
+          userId: user._id,
+          message: "Login successful",
+        });
       }
       return res.status(404).json({
         status: "fail",
