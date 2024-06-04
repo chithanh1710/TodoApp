@@ -10,7 +10,12 @@ export const createUser = (req, res) => {
         message: "Sign Up Success",
       });
     })
-    .catch((err) => console.error(err.message));
+    .catch((err) =>
+      res.status(404).json({
+        status: "fail",
+        message: "Account already exists",
+      })
+    );
 };
 
 export const checkUser = (req, res) => {
