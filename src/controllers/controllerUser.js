@@ -26,6 +26,7 @@ export const checkUser = (req, res) => {
         return res.status(200).json({
           status: "success",
           userId: user._id,
+          pass: user.password,
           message: "Login successful",
         });
       }
