@@ -20,13 +20,28 @@ export const createUser = (req, res) => {
 
 export const checkUser = (req, res) => {
   const { email, password } = req.query;
+  if (!password) {
+    return User.findOne({ email: email })
+      .then((user) => {
+        return res.status(200).json({
+          status: "success",
+          password: user.password,
+          message: "Password",
+        });
+      })
+      .catch(() =>
+        res.status(404).json({
+          status: "fail",
+          message: "Account not found",
+        })
+      );
+  }
   User.findOne({ email: email })
     .then((user) => {
       if (password === user.password) {
         return res.status(200).json({
           status: "success",
           userId: user._id,
-          pass: user.password,
           message: "Login successful",
         });
       }
